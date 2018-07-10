@@ -1,0 +1,84 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+
+
+
+ 
+
+    <persistence-unit name="FedspecJpaPersistenceUnit">
+    	<description>Persistence unit for FEDSpec object</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.ExperimentOutputJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.FileJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.WidgetJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.PresentationAttrJpa</class>
+        
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.DynamicAttrJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.DynamicAttrsJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.DynamicGeoLocationJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.DynamicQueryIntervalJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.ExperimentControlJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.FEDSpecJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.FemoJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.FismoJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.PredefinedDynamicAttrJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.QueryControlJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.QueryIntervalJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.QueryRequestJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.RuleJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.SchedulingJpa</class>
+        <class>eu.fiestaiot.experiment.erm.jpa.fedspec.entities.StaticLocationJpa</class>       
+        
+
+        <properties>
+        
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/fiesta_iot_erm?zeroDateTimeBehavior=convertToNull&amp;useSSL=false"/> 
+            <!-- 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/fiesta_iot_erm?autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull"/>
+            -->
+            <property name="hibernate.connection.username" value="fiesta"/>
+            <property name="hibernate.connection.password" value="fiesta"/>
+           
+            <property name="hibernate.show_sql" value="false" />
+
+
+            <!-- Use one to auto-generate the DB schema  -->
+            <!-- 
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
+            -->
+ 
+             <property name="hibernate.hbm2ddl.auto" value="update" />
+ 
+            <property name="hibernate.format_sql" value="true"/>
+            
+            
+            <!-- added in order to configure the connection to auto-reconnect -->
+            <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+
+            <property name="hibernate.c3p0.max_size" value="100" />
+            <property name="hibernate.c3p0.min_size" value="5" />
+            <property name="hibernate.c3p0.max_statements" value="50" />
+            <property name="hibernate.c3p0.timeout" value="1800" />          
+            <property name="hibernate.c3p0.acquire_increment" value="1" />
+            <property name="hibernate.c3p0.idle_test_period" value="300" />
+            
+            
+            
+            
+            
+            
+
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
