@@ -1,0 +1,76 @@
+<zk xmlns:n="native">
+	<style>
+	   .h-inline-block {
+		   display: inline-block;
+		   _display: inline;
+	   }
+   </style>   
+	<style src="/widgets/css/experimentRegisterClientStyle.css" />
+	<window id="winExperimentRegisterClient" style=" z-index: 999;" title="FEDSPEC" width="70%" height="78%" border="normal" apply="portalce.portalui.ExperimentRegisterController" onCreate="winExperimentRegisterClient.setSizable(true);
+	winExperimentRegisterClient.doOverlapped();" onClose="self.visible = false; event.stopPropagation();" minimizable="true" maximizable="true" closable="true" >
+		<div id="container" sclass="container" style="padding:5px">
+			
+			
+			
+
+			
+			<n:h1 class="mo_head">Experiment Register Client</n:h1>
+			<separator bar="true"></separator>
+			<hbox spacing="10px" style="padding:5px"> 
+				<!-- <button width="85px" sclass="attachBtn" upload="true,maxsize=10240" label="Open FEDSPEC" onUpload="uploadItem()" style="width:122px;" /> -->
+				 <zscript><![CDATA[
+				   void uploadItem() {
+					//   org.zkoss.util.media.Media media = event.getMedia();
+					//   Hlayout hl = new Hlayout();
+					//   hl.setSpacing("6px");
+					//   hl.setClass("newFile");
+					//   hl.appendChild(new Label(media.getName()));
+					//   java.io.File myFile = new java.io.File(media.getName());
+					//   fileNameListbox.value=myFile.getAbsolutePath();
+					//   System.out.println("--------------------------------------------------------"+media.getName());
+					//   A rm = new A("remove");
+					//   rm.addEventListener(Events.ON_CLICK,new org.zkoss.zk.ui.event.EventListener(){
+					//      public void onEvent(Event event) throws Exception {
+					//          hl.detach();
+					//      }
+					//  });
+					//  hl.appendChild(rm);
+					//  flist.appendChild(hl);
+				   }
+				   ]]></zscript>
+				<button id="openFEDSPEC" label="Open FEDSPEC" style="width:122px;"/>
+				<button id="saveFEDSPEC" label="Save FEDSPEC"  style="width:122px;"/>
+			</hbox>
+            <hlayout style="padding:5px">
+				<label sclass="hightlight" value="File Path:" width="150px" style="font-weight: bold;"/>
+                <textbox id="fileNameListbox" value="${winExperimentRegisterClient$composer.fileName}"  width="150px" tabindex="1" />
+            </hlayout>                       
+			<hlayout style="padding:5px; min-height:300px ">
+				<listbox id="femosListbox" model="${winExperimentRegisterClient$composer.femos}"  rows="9" checkmark="true" multiple="false" width="350px">
+					<listhead>
+					   <listheader label="FEMOS"/>
+					</listhead>
+					<template name="model">
+						<listitem label="${each.femoName}"/>
+					</template>
+				</listbox>             
+				<vbox spacing="10px" width="24px">
+					<button id="preview" label="Preview" style="width:122px;"/>
+					<button id="updateFemo" label="Update Femo" style="width:122px;"/>
+					<button id="exportFEDSPEC" label="Export FEDSPEC" style="width:122px;"/>
+					<button id="deleteFEDSPEC" label="Delete FEDSPEC" style="width:122px;" upload="true"/>
+				</vbox>
+				
+				<textbox id="femoXMLTextbox" style="min-height:300px; max-height:300px; overflow-y:auto;overflow-x:auto; border:none;" 
+				value="${winExperimentRegisterClient$composer.femoXML}" multiline="true" width="400px;" tabindex="1" readonly="true"/>				
+				
+		<!--	   <tree id="tree" width="300px" style=" min-height:320px ">
+				   <treecols>
+					   <treecol label="FEMO PREVIEW" />       
+				   </treecols>
+			   </tree>
+		-->
+			</hlayout> 
+		</div>
+	</window>
+</zk>

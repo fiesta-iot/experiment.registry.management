@@ -1,0 +1,43 @@
+<zk xmlns:n="native">
+	<style>
+	   .h-inline-block {
+		   display: inline-block;
+		   _display: inline;
+	   }
+   </style>   
+	<style src="/widgets/css/experimentRegisterClientStyle.css" />
+	<window id="winExperimentRegisterClient" style=" z-index: 999;" title="FEDSPEC" width="70%" height="78%" border="normal" apply="ui.experiment.register.client.ExperimentRegisterController" onCreate="winExperimentRegisterClient.setSizable(true);
+	winExperimentRegisterClient.doOverlapped();" onClose="self.visible = false; event.stopPropagation();" minimizable="true" maximizable="true" closable="true" >
+		<div id="container" sclass="container" style="padding:5px">			
+			<n:h1 class="mo_head">Experiment Register Client</n:h1>
+			<separator bar="true"></separator>
+			<hbox spacing="10px" style="padding:5px"> 
+				 <zscript><![CDATA[void uploadItem() {}]]></zscript>
+				<button id="openFEDSPEC" label="Open FEDSPEC" style="width:122px;"  upload="true"/>
+				<button id="saveFEDSPEC" label="Save FEDSPEC"  style="width:122px;"/>
+				<!--<button id="katerina" label="Export FEDSPEC"  style="width:122px;height:122px;"/>-->
+			</hbox>
+            <hlayout style="padding:5px">
+				<label sclass="hightlight" value="File Path:" width="150px" style="font-weight: bold;"/>
+                <textbox id="fileNameListbox" value="${winExperimentRegisterClient$composer.fileName}"  width="200px" tabindex="1" />
+            </hlayout>                       
+			<hlayout style="padding:5px; min-height:300px ">
+				<listbox id="femosListbox" model="${winExperimentRegisterClient$composer.femos}"  rows="9" checkmark="true" multiple="false" width="350px">
+					<listhead>
+					   <listheader label="FEMOS"/>
+					</listhead>
+					<template name="model">
+						<listitem label="${each.femoName}"/>
+					</template>
+				</listbox>             
+				<vbox spacing="10px" width="24px">
+					<button id="exportFEDSPEC" label="Export FEDSPEC" style="width:122px;" />
+					<button id="exportFEMO" label="Export Femo" style="width:122px;"/>
+					<button id="deleteAllFEDSPEC" label="Delete All Femos" style="width:122px;"/>
+				</vbox>
+				<textbox id="femoXMLTextbox" style="min-height:300px; max-height:300px; overflow-y:auto;overflow-x:auto; border:none;" 
+				value="${winExperimentRegisterClient$composer.femoXML}" multiline="true" width="400px;" tabindex="1" readonly="true"/>				
+			</hlayout> 
+		</div>
+	</window>
+</zk>

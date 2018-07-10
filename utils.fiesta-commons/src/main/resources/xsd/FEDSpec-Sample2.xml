@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fed:FEDSpec xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:fed="http://www.fiesta-iot.eu/fedspec"
+ xmlns:prt="http://www.w3.org/2007/SPARQL/protocol-types#"
+ xmlns:vbr="http://www.w3.org/2007/SPARQL/results#"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.fiesta-iot.eu/fedspec file:/C:/Ext_SSD/AIT/FIESTA/FIESTA-SVN/WP4/Task%204.1/Objects/XSD/FEDSpec.xsd" userID="http://www.fiestaiot-user-1.eu/">
+    <fed:FEMO id="http://www.fiestaiot-myFirstExperimentID.eu" name="MyFirstExperiment">
+        <fed:description>This is my first experiment</fed:description>
+        <fed:EDM><![CDATA[ "<{Experiment design metadata!!!}>"  ]]></fed:EDM>
+        <fed:domainOfInterest>http://www.FEMO-M3Lite-domainOfInterest.eu</fed:domainOfInterest>
+        <fed:FISMO id="http://www.fiestaiot-fismoID1.eu" name="My1stFismo">
+            <fed:description>This is the 1st FISMO of my first experiment</fed:description>
+            <fed:discoverable>true</fed:discoverable>
+            <fed:experimentControl>
+                <fed:scheduling>
+                    <fed:startTime>2006-05-04T18:13:51.0Z</fed:startTime>
+                    <fed:Periodicity>300</fed:Periodicity>
+                    <fed:stopTime>2007-05-04T18:13:51.0Z</fed:stopTime>
+                </fed:scheduling>
+                <fed:trigger>http://www.myNewTrigger.com/</fed:trigger>
+                <fed:reportIfEmpty>true</fed:reportIfEmpty>
+            </fed:experimentControl>
+            <fed:experimentOutput location="http://www.fiestaiot-experimenterURL1.eu/">
+                <fed:file>
+                    <fed:type>JSON</fed:type>
+                </fed:file>
+                <fed:widget widgetID="http://www.fiestaiot-myGaugeWidget1.eu">
+				    <fed:presentationAttr name="MAX" value="50"/>
+                    <fed:presentationAttr name="UNIT" value="C"/>
+                    <fed:presentationAttr name="MIN" value="0"/>
+                    <fed:presentationAttr name="TITLE" value="Avg Temperature"/>
+                    <fed:presentationAttr value="eu.fiestaiot.experiment.web.model.nodes.impl.sinks.Gauge" name="widgetClass"/>
+                </fed:widget>
+            </fed:experimentOutput>
+            <fed:queryControl>
+                <fed:quantityKind>http://www.fiestaiot-quantityKind.eu</fed:quantityKind>
+                <fed:staticLocation>
+                    <fed:latitude>46.52119378179781</fed:latitude>
+                    <fed:longitude>6.635227203369141</fed:longitude>
+                </fed:staticLocation>
+                <fed:queryInterval>
+                    <fed:fromDateTime>2006-05-04T18:13:51.0Z</fed:fromDateTime>
+                    <fed:toDateTime>2007-05-04T18:13:51.0Z</fed:toDateTime>
+                    <fed:intervalNowToPast>300</fed:intervalNowToPast>
+                </fed:queryInterval>
+                <prt:query-request>
+                    <query><![CDATA[
+						# [1 / 1] visualization type: 'Gauge' and sensors
+						PREFIX iot-lite: <http://purl.oclc.org/NET/UNIS/fiware/iot-lite#>
+						PREFIX m3-lite: <http://purl.org/iot/vocab/m3-lite#>
+						PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>
+						PREFIX geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#>
+						PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+						PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+						SELECT  ?dev ?qk ?unit ?lat ?long ?endp 
+						WHERE {
+						  ?dev a ssn:Device .
+						  ?dev ssn:onPlatform ?platform .
+						  ?platform geo:location ?point .
+						  ?point geo:lat ?lat .
+						  ?point geo:long ?long .
+						  ?dev ssn:hasSubSystem ?sensor .
+						  ?sensor a ssn:SensingDevice .
+						  ?sensor iot-lite:exposedBy ?serv .
+						  ?sensor iot-lite:hasQuantityKind ?qk .
+						   VALUES ?qk {m3-lite:AirTemperature m3-lite:Presence}
+						  ?sensor iot-lite:hasUnit ?unit .
+						  ?serv iot-lite:endpoint ?endp .
+						  FILTER ( 
+							   (xsd:double(?lat) >= "0"^^xsd:double) 
+							&& (xsd:double(?lat) <= "60"^^xsd:double) 
+							&& ( xsd:double(?long) < "10"^^xsd:double)  
+							&& ( xsd:double(?long) > "-6"^^xsd:double)
+							)     
+						}order by asc(UCASE(str(?qk)))
+					]]></query>
+                    <default-graph-uri>http://www.fiestaiot-default-graph.eu/</default-graph-uri>
+                    <named-graph-uri>http://www.fiestaiot-named-graph.eu/</named-graph-uri>
+                </prt:query-request>
+				<fed:dynamicAttrs>
+					<fed:predefinedDynamicAttr>
+						<fed:dynamicQueryInterval>
+							<fed:fromDateTime>2006-05-04T18:13:51.0Z</fed:fromDateTime>
+							<fed:toDateTime>2006-05-04T18:13:51.0Z</fed:toDateTime>
+							<fed:intervalNowToPast>60</fed:intervalNowToPast>
+						</fed:dynamicQueryInterval>
+						<fed:dynamicGeoLocation>
+							<fed:latitude>46.52119378179781</fed:latitude>
+							<fed:longitude>6.635227203369141</fed:longitude>
+						</fed:dynamicGeoLocation>
+					</fed:predefinedDynamicAttr>
+                    <fed:dynamicAttr name="latitude" value="46.52119378179781"/>
+                    <fed:dynamicAttr name="longitude" value="6.635227203369141"/>
+                </fed:dynamicAttrs>
+            </fed:queryControl>
+			<fed:service>http://my.super.service1.eu</fed:service>
+            <fed:rule name="MySuperRule">
+                <fed:ruleDefinition>MyRuleDefinition</fed:ruleDefinition>
+                <fed:domainKnowledge>http://www.fiestaiot-domainKnowledge.eu</fed:domainKnowledge>
+                <fed:quantityKind>http://www.fiestaiot-quantityKind.eu</fed:quantityKind>
+            </fed:rule>
+        </fed:FISMO>
+        <fed:FISMO id="http://www.fiestaiot-fismoID2.eu" name="My2ndFismo">
+            <fed:description>This is the 2nd FISMO of my first experiment</fed:description>
+            <fed:discoverable>true</fed:discoverable>
+            <fed:experimentControl>
+                <fed:scheduling>
+                    <fed:startTime>2006-05-04T18:13:51.0Z</fed:startTime>
+                    <fed:Periodicity>250</fed:Periodicity>
+                    <fed:stopTime>2007-05-04T18:13:51.0Z</fed:stopTime>
+                </fed:scheduling>
+                <fed:trigger>http://www.my2ndNewTrigger.com/</fed:trigger>
+                <fed:reportIfEmpty>true</fed:reportIfEmpty>
+            </fed:experimentControl>
+            <fed:experimentOutput location="http://www.fiestaiot-experimenterURL1.eu/">
+                <fed:file>
+                    <fed:type>XML</fed:type>
+                </fed:file>
+                <fed:widget widgetID="http://www.fiestaiot-myMapWidget1.eu">
+				
+				    <fed:presentationAttr name="LAT" value="46.52963"/>
+                    <fed:presentationAttr name="LON" value="6.59686"/>
+                    <fed:presentationAttr name="ZOOM" value="14"/>
+                    <fed:presentationAttr name="SCALER" value="1"/>
+                    <fed:presentationAttr name="TYPE" value="Markers only"/>
+                    <fed:presentationAttr name="TITLE" value="Sensors on the map"/>
+                    <fed:presentationAttr value="eu.fiestaiot.experiment.web.model.nodes.impl.sinks.Map" name="widgetClass"/>
+                </fed:widget>
+            </fed:experimentOutput>
+            <fed:queryControl>
+                <fed:quantityKind>http://www.fiestaiot-quantityKind.eu</fed:quantityKind>
+                <fed:staticLocation>
+                    <fed:latitude>46.52119378179781</fed:latitude>
+                    <fed:longitude>6.635227203369141</fed:longitude>
+                </fed:staticLocation>
+                <fed:queryInterval>
+                    <fed:fromDateTime>2006-05-04T18:13:51.0Z</fed:fromDateTime>
+                    <fed:toDateTime>2007-05-04T18:13:51.0Z</fed:toDateTime>
+                    <fed:intervalNowToPast>250</fed:intervalNowToPast>
+                </fed:queryInterval>
+                <prt:query-request>
+                    <query><![CDATA[
+						# [1 / 1] visualization type: 'Map' and sensors
+						PREFIX geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#>
+						PREFIX iot-lite: <http://purl.oclc.org/NET/UNIS/fiware/iot-lite#>
+						PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>
+						PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+						SELECT ?dev ?resource ?lat ?long
+						WHERE { 
+							?dev a ssn:Device .
+							?dev ssn:hasSubSystem ?resource.
+							?resource a ssn:SensingDevice.
+							?dev ssn:onPlatform ?platform .
+							?platform geo:location ?point .
+							?point geo:lat ?lat .
+							?point geo:long ?long .
+							FILTER ( 
+							   (xsd:double(?lat) >= "0"^^xsd:double) 
+							&& (xsd:double(?lat) <= "60"^^xsd:double) 
+							&& ( xsd:double(?long) < "100"^^xsd:double)  
+							&& ( xsd:double(?long) > "-0.60"^^xsd:double)
+							)     
+						}
+					]]></query>
+                    <default-graph-uri>http://www.fiestaiot-default-graph.eu/</default-graph-uri>
+                    <named-graph-uri>http://www.fiestaiot-named-graph.eu/</named-graph-uri>
+                </prt:query-request>
+                <fed:dynamicAttrs>
+					<fed:predefinedDynamicAttr>
+						<fed:dynamicQueryInterval>
+							<fed:fromDateTime>2006-05-04T18:13:51.0Z</fed:fromDateTime>
+							<fed:toDateTime>2006-05-04T18:13:51.0Z</fed:toDateTime>
+							<fed:intervalNowToPast>60</fed:intervalNowToPast>
+						</fed:dynamicQueryInterval>
+						<fed:dynamicGeoLocation>
+							<fed:latitude>46.52119378179781</fed:latitude>
+							<fed:longitude>6.635227203369141</fed:longitude>
+						</fed:dynamicGeoLocation>
+					</fed:predefinedDynamicAttr>
+                    <fed:dynamicAttr name="latitude" value="46.52119378179781"/>
+                    <fed:dynamicAttr name="longitude" value="6.635227203369141"/>
+                </fed:dynamicAttrs>
+            </fed:queryControl>
+			<fed:service>http://my.super.service2.eu</fed:service>
+            <fed:rule name="MySuperRule">
+                <fed:ruleDefinition>MyRuleDefinition</fed:ruleDefinition>
+                <fed:domainKnowledge>http://www.fiestaiot-domainKnowledge.eu</fed:domainKnowledge>
+                <fed:quantityKind>http://www.fiestaiot-quantityKind.eu</fed:quantityKind>
+            </fed:rule>
+        </fed:FISMO>
+    </fed:FEMO>
+</fed:FEDSpec>

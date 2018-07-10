@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Author: Nikos Kefalakis (nkef@ait.edu.gr) -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="urn:fiestaiot:experiment:descriptiveids:xsd:1"
+  xmlns:fed="http://www.fiesta-iot.eu/fedspec"
+  xmlns:edid="urn:fiestaiot:experiment:descriptiveids:xsd:1">
+
+  <xs:import namespace="http://www.fiesta-iot.eu/fedspec" schemaLocation="FEDSpec.xsd"/>
+
+
+  <xs:element name="ExpDescriptiveIDs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="edid:FemoDescriptiveID" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FemoDescriptiveID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" minOccurs="0" ref="fed:description"/>
+        <xs:element ref="fed:domainOfInterest" minOccurs="0"/>
+        <xs:element ref="edid:FismoDescriptiveID" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:anyURI"/>
+      <xs:attribute name="name" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="FismoDescriptiveID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="fed:description"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:anyURI"/>
+      <xs:attribute name="name" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+</xs:schema>

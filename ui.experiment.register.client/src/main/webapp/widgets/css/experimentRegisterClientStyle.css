@@ -1,0 +1,37 @@
+.container.z-div{
+	padding-left: 4px; 
+}
+
+.nav_toolbar .z-toolbarbutton-content i { 
+    font-size: 20px;
+}
+
+.nav_tabs .z-tabpanel { 
+    padding: 0; 
+    border-bottom: 0 none;
+}
+
+.nav_tabs .z-tabpanels .z-toolbarbutton-content {
+    padding: 4px;
+}
+
+.nav_category { 
+    cursor:pointer; 
+}    
+
+.nav_text { 
+    color: #696569; 
+    font-size : 24px; 
+    font-weight: bold;
+}
+
+.z-tab-text {
+    cursor: default;
+    font-weight: bold;
+    font-size:15px;
+}
+    
+#attachBtn{
+    background:url(http://icons.iconseeker.com/png/fullsize/agua/folder-open-17.png);
+    background-repeat: no-repeat;
+}
